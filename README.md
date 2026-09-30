@@ -1,6 +1,6 @@
 # AyDesktop
 
-> 基于 WPF 的 Windows 桌面替代层。
+基于 WPF 的 Windows 桌面替代层。
 
 AyDesktop 用一层透明窗口覆盖在系统桌面之上，把图标管理、文件夹分组、快捷启动整合成一个轻量的"第二桌面"。点击悬浮球即可随时呼出，不用时可以完全隐去，与原生桌面无缝切换。
 
@@ -52,11 +52,11 @@ AyDesktop 用一层透明窗口覆盖在系统桌面之上，把图标管理、�
 
 ## 系统要求
 
-| 项目 | 要求 |
-|---|---|
+| 项目     | 要求                               |
+| -------- | ---------------------------------- |
 | 操作系统 | Windows 10 1809 (17763) 或更高版本 |
-| 运行时 | .NET 8 Desktop Runtime |
-| 架构 | x64 / ARM64 |
+| 运行时   | .NET 8 Desktop Runtime             |
+| 架构     | x64 / ARM64                        |
 
 ---
 
@@ -93,7 +93,7 @@ dotnet publish AyDesktop -c Release
 
 ## 配置
 
-敏感配置通过 `.env` 文件提供，**构建时嵌入 exe**，发布目录不包含外部配置文件。
+敏感配置通过 `.env` 文件提供，构建时编译为 C#代码。
 
 ### `.env`
 
@@ -110,26 +110,25 @@ AYDESKTOP_CLIENT_SECRET_B32=你的_BASE32_SECRET
 ### 运行时行为
 
 - 修改 `.env` 后需**重新构建**才生效
-- 运行时可通过系统环境变量临时覆盖（优先级最高）
 - 嵌入方式：`<EmbeddedResource>` + `LogicalName=AyDesktop.EnvData`
 
 ---
 
 ## 操作说明
 
-| 操作 | 说明 |
-|---|---|
-| 单击悬浮球 | 切换桌面显示 / 隐藏 |
-| 拖动悬浮球 | 移动位置，自动持久化 |
-| 双击图标 | 打开文件 / 文件夹 |
-| 拖拽图标 | 移动，重叠时提示合并 |
-| Ctrl / Shift + 单击 | 多选 |
-| 空白处拖动 | 框选 |
-| 右键图标 | 原生 Shell 菜单 |
-| 右键桌面 | 刷新、自动排列、新建文件夹、设置等 |
-| ESC | 隐藏桌面 / 关闭文件夹窗口 |
-| Ctrl + A | 全选 |
-| Delete | 删除选中项（移入回收站） |
+| 操作                | 说明                               |
+| ------------------- | ---------------------------------- |
+| 单击悬浮球          | 切换桌面显示 / 隐藏                |
+| 拖动悬浮球          | 移动位置，自动持久化               |
+| 双击图标            | 打开文件 / 文件夹                  |
+| 拖拽图标            | 移动，重叠时提示合并               |
+| Ctrl / Shift + 单击 | 多选                               |
+| 空白处拖动          | 框选                               |
+| 右键图标            | 原生 Shell 菜单                    |
+| 右键桌面            | 刷新、自动排列、新建文件夹、设置等 |
+| ESC                 | 隐藏桌面 / 关闭文件夹窗口          |
+| Ctrl + A            | 全选                               |
+| Delete              | 删除选中项（移入回收站）           |
 
 ---
 
@@ -158,9 +157,8 @@ AyDesktop/
 │   │   ├── DesktopMonitorService # 文件监控
 │   │   ├── MachineKeyStore     # AES-GCM 本地加密
 │   │   ├── HardwareId          # WMI 硬件指纹
-│   │   ├── Env                 # 嵌入配置读取
 │   │   └── ...                 # AdminHelper / StartupHelper 等
-│   └── AyOAuthClientSDK.cs     # 自实现的轻量 OAuth 客户端
+│   └── AyOAuthClientSDK.cs     # Ay OAuth SDK
 ├── .env.example                # 配置模板
 ├── .gitignore
 └── LICENSE
@@ -172,9 +170,9 @@ AyDesktop/
 
 ### 环境
 
-- Visual Studio 2022 (17.8+) 或 JetBrains Rider
+- Visual Studio 2026
 - .NET 8 SDK
-- Windows 10 1809+
+- Windows 10 企业版 LTSC 21H2
 
 ### 调试
 
@@ -184,12 +182,12 @@ dotnet run --project AyDesktop
 
 ### 依赖
 
-| 包 | 用途 |
-|---|---|
-| `System.Management` | WMI 硬件指纹采集 |
-| `System.Security.Cryptography.ProtectedData` | DPAPI |
+| 包                                           | 用途             |
+| -------------------------------------------- | ---------------- |
+| `System.Management`                          | WMI 硬件指纹采集 |
+| `System.Security.Cryptography.ProtectedData` | DPAPI            |
 
-均为 MIT 许可。
+依赖包均为 MIT 许可。
 
 ---
 
