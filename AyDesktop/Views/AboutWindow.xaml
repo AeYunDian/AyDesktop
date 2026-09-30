@@ -1,0 +1,50 @@
+<Window x:Class="AyDesktop.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title='关于 "AyDesktop"'
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0"
+        FontFamily="Microsoft YaHei">
+
+  <Canvas Width="509" Height="424" Background="#F0F0F0">
+
+    <!-- 应用名（居中，代替原来的"图标 + 名字"组合） -->
+    <TextBlock x:Name="AppNameText"
+               Canvas.Left="0" Canvas.Top="14"
+               Width="509"
+               Text="AyDesktop"
+               FontFamily="Microsoft YaHei"
+               FontSize="27"
+               TextAlignment="Center"/>
+
+    <!-- 1px 细分割线 -->
+    <Border Canvas.Left="12" Canvas.Top="63"
+            Width="485" Height="1"
+            Background="#A0A0A0"/>
+
+    <!-- 正文 -->
+    <TextBlock x:Name="BodyText"
+               Canvas.Left="41" Canvas.Top="82"
+               Width="450"
+               FontFamily="Microsoft YaHei"
+               FontSize="12"
+               LineHeight="18"
+               TextWrapping="Wrap"
+               TextOptions.TextFormattingMode="Display"/>
+
+    <!-- 确定按钮 -->
+    <Button x:Name="OkButton"
+            Canvas.Left="422" Canvas.Top="384"
+            Width="75" Height="28"
+            Content="确定"
+            FontFamily="Microsoft YaHei"
+            FontSize="12"
+            IsDefault="True"
+            IsCancel="True"
+            Click="OkButton_Click"/>
+
+  </Canvas>
+</Window>

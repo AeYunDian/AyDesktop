@@ -1,0 +1,279 @@
+<Window x:Class="AyDesktop.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AyDesktop 设置"
+        Width="620" Height="680"
+        MinWidth="520" MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,12,0,4"/>
+        </Style>
+        <Style x:Key="FieldHint" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#777"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+        </Style>
+        <Style x:Key="SpacedCheck" TargetType="CheckBox">
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+        <Style x:Key="Divider" TargetType="Border">
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="Margin" Value="0,16,0,12"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="12,12,12,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl x:Name="MainTabs" Grid.Row="0">
+
+            <!-- ===================== 外观 ===================== -->
+            <TabItem Header="外观">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Padding="16,14,16,16">
+                    <StackPanel>
+
+                        <TextBlock Text="桌面背景" Style="{StaticResource SectionTitle}"/>
+                        <CheckBox Content="显示背景"
+                                  IsChecked="{Binding Config.ShowBackground}"
+                                  Style="{StaticResource SpacedCheck}"/>
+
+                        <TextBlock Text="背景颜色（十六进制，如 #CC1E1E1E）"
+                                   Style="{StaticResource FieldLabel}"/>
+                        <TextBox Text="{Binding Config.BackgroundColor, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Text="背景不透明度" Style="{StaticResource FieldLabel}"/>
+                        <Slider Minimum="0" Maximum="1"
+                                Value="{Binding Config.BackgroundOpacity}"/>
+
+                        <Border Style="{StaticResource Divider}"/>
+
+                        <TextBlock Text="布局" Style="{StaticResource SectionTitle}"/>
+
+                        <TextBlock Text="图标大小" Style="{StaticResource FieldLabel}"/>
+                        <Slider Minimum="24" Maximum="96"
+                                Value="{Binding Config.IconSize}"/>
+
+                        <TextBlock Text="网格大小" Style="{StaticResource FieldLabel}"/>
+                        <Slider Minimum="48" Maximum="160"
+                                Value="{Binding Config.GridSize}"/>
+
+                        <CheckBox Content="启用进入 / 退出动画"
+                                  IsChecked="{Binding Config.EnableAnimations}"
+                                  Style="{StaticResource SpacedCheck}"
+                                  Margin="0,12,0,5"/>
+
+                        <Border Style="{StaticResource Divider}"/>
+
+                        <TextBlock Text="悬浮球" Style="{StaticResource SectionTitle}"/>
+
+                        <TextBlock Text="悬浮球不透明度" Style="{StaticResource FieldLabel}"/>
+                        <Slider Minimum="0.2" Maximum="1"
+                                Value="{Binding Config.FloatWindowOpacity}"/>
+
+                        <CheckBox Content="悬浮球置顶"
+                                  IsChecked="{Binding Config.FloatTopmost}"
+                                  Style="{StaticResource SpacedCheck}"
+                                  Margin="0,10,0,5"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ===================== 行为 ===================== -->
+            <TabItem Header="行为">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Padding="16,14,16,16">
+                    <StackPanel>
+
+                        <TextBlock Text="排列" Style="{StaticResource SectionTitle}"/>
+
+                        <CheckBox Content="自动排列图标"
+                                  IsChecked="{Binding Config.AutoArrange}"
+                                  Style="{StaticResource SpacedCheck}"/>
+
+                        <CheckBox Content="对齐到网格"
+                                  IsChecked="{Binding Config.SnapToGrid}"
+                                  Style="{StaticResource SpacedCheck}"/>
+
+                        <Border Style="{StaticResource Divider}"/>
+
+                        <TextBlock Text="文件夹" Style="{StaticResource SectionTitle}"/>
+
+                        <TextBlock Text="新建文件夹的默认样式" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="FolderModeCombo" SelectedIndex="0">
+                            <ComboBoxItem Content="全屏文件夹（双击打开新窗口）" Tag="Fullscreen"/>
+                            <ComboBoxItem Content="桌面分组框" Tag="Group"/>
+                        </ComboBox>
+                        <TextBlock Text="已创建的文件夹可在桌面右键 →「文件夹样式」中单独覆盖。"
+                                   Style="{StaticResource FieldHint}"/>
+
+                        <CheckBox Content="全屏文件夹以模态框形式打开"
+                                  IsChecked="{Binding Config.FolderWindowModal}"
+                                  Style="{StaticResource SpacedCheck}"
+                                  Margin="0,12,0,5"/>
+                        <TextBlock Text="模态打开时，文件夹窗口会挡住桌面操作；关闭后才能继续点击桌面。非模态则两者可同时操作。"
+                                   Style="{StaticResource FieldHint}"/>
+
+                        <CheckBox Content="拖拽图标叠放时自动创建文件夹"
+                                  IsChecked="{Binding Config.AutoCreateFolder}"
+                                  Style="{StaticResource SpacedCheck}"
+                                  Margin="0,12,0,5"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ===================== 显示 ===================== -->
+            <TabItem Header="显示">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Padding="16,14,16,16">
+                    <StackPanel>
+
+                        <TextBlock Text="以下选项可分别跟随系统或强制指定"
+                                   Style="{StaticResource FieldHint}"
+                                   Margin="0,0,0,8"/>
+
+                        <TextBlock Text="文件扩展名" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="ExtCombo" SelectedIndex="0">
+                            <ComboBoxItem Content="跟随系统"/>
+                            <ComboBoxItem Content="始终显示"/>
+                            <ComboBoxItem Content="始终隐藏"/>
+                        </ComboBox>
+
+                        <TextBlock Text="隐藏文件" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="HiddenCombo" SelectedIndex="0">
+                            <ComboBoxItem Content="跟随系统"/>
+                            <ComboBoxItem Content="始终显示"/>
+                            <ComboBoxItem Content="始终隐藏"/>
+                        </ComboBox>
+
+                        <TextBlock Text="系统图标（此电脑、回收站等）"
+                                   Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="SystemIconsCombo" SelectedIndex="0">
+                            <ComboBoxItem Content="跟随系统"/>
+                            <ComboBoxItem Content="始终显示"/>
+                            <ComboBoxItem Content="始终隐藏"/>
+                        </ComboBox>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ===================== 文件夹 ===================== -->
+            <TabItem Header="文件夹">
+                <Grid Margin="16,14,16,16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0,0,0,8">
+                        <TextBlock Text="监控文件夹" Style="{StaticResource SectionTitle}"/>
+                        <TextBlock Text="这些文件夹里的文件会显示在桌面上。"
+                                   Style="{StaticResource FieldHint}"/>
+                    </StackPanel>
+
+                    <ListBox x:Name="FolderList" Grid.Row="1"
+                             ItemsSource="{Binding Config.MonitoredFolders}"/>
+
+                    <StackPanel Grid.Row="2" Margin="0,10,0,0">
+
+                        <TextBlock Text="快捷添加" Foreground="#777" FontSize="11"
+                                   Margin="0,0,0,6"/>
+
+                        <WrapPanel>
+                            <Button Content="用户桌面" Tag="Desktop"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="公共桌面" Tag="PublicDesktop"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="文档" Tag="Documents"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="下载" Tag="Downloads"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="图片" Tag="Pictures"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="音乐" Tag="Music"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                            <Button Content="视频" Tag="Videos"
+                                    Click="QuickAddFolder_Click"
+                                    Padding="10,5" Margin="0,0,6,6"/>
+                        </WrapPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <Button Content="手动添加" Click="AddFolder_Click"
+                                    Padding="12,6" Margin="0,0,8,0"/>
+                            <Button Content="移除选中" Click="RemoveFolder_Click"
+                                    Padding="12,6"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== 高级 ===================== -->
+            <TabItem Header="高级">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Padding="16,14,16,16">
+                    <StackPanel>
+
+                        <TextBlock Text="启动" Style="{StaticResource SectionTitle}"/>
+                        <CheckBox Content="随 Windows 开机启动"
+                                  IsChecked="{Binding Config.RunAtStartup}"
+                                  Style="{StaticResource SpacedCheck}"/>
+
+                        <Border Style="{StaticResource Divider}"/>
+
+                        <TextBlock Text="危险操作" Style="{StaticResource SectionTitle}"
+                                   Foreground="#C42B1C"/>
+                        <TextBlock Text="以下操作不可撤销，执行后应用会自动重启。"
+                                   Style="{StaticResource FieldHint}"
+                                   Margin="0,0,0,10"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="删除桌面配置"
+                                    Click="DeleteDesktopConfig_Click"
+                                    Padding="12,6" Margin="0,0,8,0"/>
+                            <Button Content="删除应用配置"
+                                    Click="DeleteAppConfig_Click"
+                                    Padding="12,6" Margin="0,0,8,0"/>
+                            <Button Content="重置全部"
+                                    Click="ResetAll_Click"
+                                    Padding="12,6"
+                                    Foreground="#C42B1C"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+        </TabControl>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="保存" Click="Save_Click"
+                    Padding="20,8" Margin="0,0,8,0" IsDefault="True"/>
+            <Button Content="取消" Click="Cancel_Click" Padding="20,8"/>
+        </StackPanel>
+    </Grid>
+</Window>
