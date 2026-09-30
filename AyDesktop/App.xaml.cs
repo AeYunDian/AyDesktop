@@ -154,6 +154,7 @@ public partial class App : Application
     protected override void OnExit(ExitEventArgs e)
     {
         StopLoginWatchdog();
+        try { ShellContextMenu.Shutdown(); } catch { }
         try { Auth.Dispose(); } catch { }
         base.OnExit(e);
     }

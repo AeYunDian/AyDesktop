@@ -9,6 +9,11 @@
     <AssemblyName>AyDesktop</AssemblyName>
     <RootNamespace>AyDesktop</RootNamespace>
     <LangVersion>latest</LangVersion>
+
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <InformationalVersion>1.0.1</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>

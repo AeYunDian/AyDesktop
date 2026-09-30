@@ -17,6 +17,7 @@
                           Click="Menu_RunAsAdmin_Click"/>
                 <Separator/>
                 <MenuItem Header="关于 AyDesktop" Click="Menu_About_Click"/>
+                <MenuItem Header="重启程序" Click="Menu_Restart_Click"/>
                 <!-- ★ 新增：离线时显示登录入口 -->
                 <MenuItem x:Name="MenuLogin"
                           Header="登录 Ay 账号"

@@ -232,7 +232,10 @@ public partial class FloatWindow : Window
         var arg = $"{StartupCommand.Switch} {StartupCommand.Encode(StartupAction.Logout)}";
         AdminHelper.Restart(arg);
     }
-
+    private void Menu_Restart_Click(object sender, RoutedEventArgs e)
+    {
+        AdminHelper.Restart();
+    }
     private void Menu_Exit_Click(object sender, RoutedEventArgs e)
     {
         Application.Current.Shutdown();
